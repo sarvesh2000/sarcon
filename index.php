@@ -93,59 +93,23 @@
         <h3 class="display-3 text-center">Our Upcoming Events</h3>
         <!-- Grid System -->
         <div class="container my-5">
-            <div class="row">
-
-            <!-- AJAX Script -->
             <script>
-                function refreshData(){
+            function refreshData(){
                 var x=5;
                 var request = $.ajax({
                 url: "http://localhost/sarcon/getEvents.php",
                 type: "GET",
-                dataType: "json",
                 success: function(response){
                     console.log(response);
-                    var len = response.length;
-                    for(var i=0; i<len; i++){
-                        var event_id = response[i].event_id;
-                        var event_name = response[i].event_name;
-                        var event_image = response[i].event_image;
-                        var event_description = response[i].event_description;
-                        var event_status = response[i].event_status;
-                        var href_string = "events.php?id="+event_id;
-                        document.getElementById("event_name").innerHTML = event_name;
-                        document.getElementById("event_description").innerHTML = event_description;
-                        if(event_status == 0){
-                            $('#event_button').attr('aria-disabled', "true");
-                            $('#event_button').attr('class', "btn btn-primary disabled");
-
-                        }else{
-                            $('#event_button').attr('aria-disabled', "false");
-                            $('#event_button').attr('class', "btn btn-primary");
-                        }
-                        $('#event_button').prop('href', href_string);
-                        $('#event_image').prop('src', event_image);
-                        $('#event_image').attr('aria-disabled', event_image);
-                    }
+                    $("#content").html(response);
                 }
                 });
                 setTimeout(refreshData, x*1000);
-
-                }
-                refreshData();
+            }
+            refreshData();
             </script>
-            
-                <div class="col-sm">
-                    <!-- Card 1 -->
-                    <div class="card" style="width: 18rem;">
-                        <img src="" class="card-img-top" alt="..." id="event_image">
-                        <div class="card-body">
-                            <h5 class="card-title" id="event_name"></h5>
-                            <p class="card-text" id="event_description"></p>
-                            <a href="#" class="btn btn-primary" name = "event_id" id="event_button" aria-disabled="false">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
+            <div class = 'row' id="content">
+                
             </div>
         </div>
     </div>
